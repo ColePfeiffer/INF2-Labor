@@ -1,15 +1,13 @@
-﻿function OnMouseDown () {
-    Debug.Log("Du hast Fläche 02 geklickt.");
-    //important.test01 = true;
-    // 0 = 1
-    // 1 = 2
-    // 2 = 3
-    // 3 = 4
+﻿function OnMouseDown() {
     var tempOptionIndex:int =  1;
-    
-    important.showNextPG(tempOptionIndex);
+    if (important.fieldOptionClickable2) {
+        Debug.Log("Du hast Fläche 02 geklickt.");
+        important.showNextPG(tempOptionIndex);
+    }
+    else {
+        Debug.Log("Du hast Fläche 02 geklickt, aber sie reagiert gerade nicht.");
+    }
 }
-
 
 
 /* #weg

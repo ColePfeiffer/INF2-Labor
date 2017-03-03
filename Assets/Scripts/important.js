@@ -25,8 +25,38 @@ fieldPG = ifieldPG;
 // Hier wird der aktuelle Paragraph (als Objekt) abgespeichert
 static var currentPG = new Paragraph(" ");
 // Hier wird der vorletzte Paragraph (als Objekt) abgespeichert
-// am besten als Arrayeintrag?!
 static var lastPG = new Paragraph(" ");
+
+// am besten als Arrayeintrag?!
+// Hier die jeweiligen Abschnitte
+static var pgHistoryArray = [];
+// Hier werden die aktuellen Tags eingereiht
+static var tagHistoryArray = [];
+
+// Wenn ich die Inhalte ändern möchte, sollte ich wohl nicht mit push arbeiten, oder?
+// Oder mit Slice?
+/*
+console.log(arr.join());
+arr.splice(2, 0, "Lene");
+console.log(arr.join());
+
+Jani,Hege,Stale,Kai Jim,Borge
+Jani,Hege,Lene,Stale,Kai Jim,Borge
+
+UND
+
+var array = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+slice(0,3)
+[5,10,15]
+
+ODER
+
+var array = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+snippet.log("Before: " + array.join(", "));
+array.length = 3;
+snippet.log("After: " + array.join(", "));
+*/
+
 
 // ########################
 // Erstellen der Abschnitte
@@ -65,7 +95,12 @@ pg001b.addOption("Option 3", "#", pg003);
 // ########################
 // Testbereich - #testing #weg
 // ########################
+static var fieldOptionClickable1 : boolean = true;
+static var fieldOptionClickable2 : boolean = true;
+static var fieldOptionClickable3 : boolean = true;
+static var fieldOptionClickable4 : boolean = true;
 
+    
 // ########################
 // Wird bei GameStart durchgeführt
 // ########################
@@ -98,24 +133,20 @@ static function showNextPG(tempOptionIndex:int){
 
 static function showOption(){
       
-        /*
-        // Beispiel zum Verständnis
-        var x:Hashtable = new Hashtable();
-        x["test"] = "otto";
-        var y:Hashtable = new Hashtable();
-        y["test"] = "petra";
+    /*
+    // Beispiel zum Verständnis
+    var x:Hashtable = new Hashtable();
+    x["test"] = "otto";
+    var y:Hashtable = new Hashtable();
+    y["test"] = "petra";
     
-        var arrayTest = [x, y];
-        for (var item:Hashtable in arrayTest){
-            Debug.Log(item["test"]);
-        }
-    
-        */
+    var arrayTest = [x, y];
+    for (var item:Hashtable in arrayTest){
+        Debug.Log(item["test"]);
+    }
+    */
 
-    var arrayTest = currentPG.optionArray;
-    //Debug.Log(currentPG.optionArray[0]["optionTxt"]);
-    
-    //Anderer Versuch
+    // Fallunterscheidung je nach Anzahl der Optionen
     switch (currentPG.optionCount)
     {
         case 4:
@@ -129,53 +160,32 @@ static function showOption(){
             fieldOption2.GetComponent.<Text>().text = currentPG.optionArray[1]["optionTxt"];
             fieldOption3.GetComponent.<Text>().text = currentPG.optionArray[2]["optionTxt"];
             fieldOption4.GetComponent.<Text>().text = "  ";
+            fieldOptionClickable4 = false;
             break;
         case 2:
             fieldOption1.GetComponent.<Text>().text = currentPG.optionArray[0]["optionTxt"];
             fieldOption2.GetComponent.<Text>().text = currentPG.optionArray[1]["optionTxt"];
             fieldOption3.GetComponent.<Text>().text = "  ";
             fieldOption4.GetComponent.<Text>().text = "  ";
+            fieldOptionClickable3 = false;
+            fieldOptionClickable4 = false;
             break;
         case 1:
             fieldOption1.GetComponent.<Text>().text = currentPG.optionArray[0]["optionTxt"];
             fieldOption2.GetComponent.<Text>().text = "  ";
             fieldOption3.GetComponent.<Text>().text = "  ";
             fieldOption4.GetComponent.<Text>().text = "  ";
+            fieldOptionClickable2 = false;
+            fieldOptionClickable3 = false;
+            fieldOptionClickable4 = false;
             break;
         default:
             Debug.Log("Keine Antworten definiert.");
             break;
     }
+}
 
-    /*
-    // For-Each Schleife 1
-    for (var option:Hashtable in arrayTest){
-        Debug.Log(option["optionTxt"]);
-    }
-    Debug.Log("For-Each abgeschlossen.");
 
-    // For-Schleife 2
-    Debug.Log("ForSchleife beginnt.");
-    for (var i = 0; i <= 3; i++){
-        Debug.Log("Innerhalb der Schlaufe...");
-
-        if(typeof currentPG.optionArray[i] === 'undefined') {
-            Debug.Log("Existiert nicht.");
-        }
-        else {
-            Debug.Log("Existiert");
-        }
-    }
-    Debug.Log("ForSchleife abgeschlossen.");
-
-    */
-    /*
-    fieldOption1.GetComponent.<Text>().text = cG001.optionArray[0]["optionTxt"];
-    fieldOption2.GetComponent.<Text>().text = cG001.txt;
-    fieldOption3.GetComponent.<Text>().text = cG001.txt;
-    fieldOption4.GetComponent.<Text>().text = cG001.txt;
-    */
-};
 
 // ##########################################################
 //  Testbereich
@@ -196,13 +206,31 @@ function OnMouseDown () {
 }
 
 */
-
-
-
 /*
 // ########################
 // Ideen
 // ########################
 
+var arrayTest = currentPG.optionArray;
+// For-Each Schleife 1
+for (var option:Hashtable in arrayTest){
+    Debug.Log(option["optionTxt"]);
+}
+Debug.Log("For-Each abgeschlossen.");
+    
+// For-Schleife 2
+Debug.Log("ForSchleife beginnt.");
+for (var i = 0; i <= 3; i++){
+    Debug.Log("Innerhalb der Schlaufe...");
+    
+    if(typeof currentPG.optionArray[i] === 'undefined') {
+        Debug.Log("Existiert nicht.");
+    }
+    else {
+        Debug.Log("Existiert");
+    }
+}
+Debug.Log("ForSchleife abgeschlossen.");
+    
 
 */
