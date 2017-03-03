@@ -72,6 +72,7 @@ public static var test04 : boolean = false;
 // Wird bei GameStart durchgeführt
 // ########################
 function Start () {
+    Debug.Log("Test 33");
     fieldPG.GetComponent.<Text>().text = "Alles noch total in der Testphase, juchuu.";
     yield WaitForSeconds(2);
     fieldPG.GetComponent.<Text>().text = cG001.txt;
@@ -87,11 +88,9 @@ function Start () {
 
 // wird ausgeführt, sobald ein Knopf gedrückt wird - also eine Option bestätigt wird
 //var tempOptionIndex:int;
-
 // Hier wird der aktuelle Paragraph (name) abgespeichert
 //static var currentPG:String;
 static var currentPG = new Paragraph(" ");
-
 // Hier wird der vorletzte Paragraph (name) abgespeichert
 // am besten als Arrayeintrag?!
 static var lastPG = new Paragraph(" ");
@@ -107,10 +106,37 @@ static function showNextPG(tempOptionIndex:int){
 
     // Optionen werden ausgegeben
     showOption();
-}
+};
 
 static function showOption(){
+      
+        /*
+        // Beispiel zum Verständnis
+        var x:Hashtable = new Hashtable();
+        x["test"] = "otto";
+        var y:Hashtable = new Hashtable();
+        y["test"] = "petra";
     
+        var arrayTest = [x, y];
+        for (var item:Hashtable in arrayTest){
+            Debug.Log(item["test"]);
+        }
+    
+        */
+
+        var arrayTest = currentPG.optionsArray;
+
+        for (var option:Hashtable in arrayTest){
+            Debug.Log(option["optionTxt"]);
+        }
+
+    /*currentPG.optionArray.forEach(function(currentPG.optionArray) {
+        if (arrayToLookThrough.valid) {
+            out(arrayToLookThrough.txt);
+        };
+    });
+    */
+
     if(typeof currentPG.optionArray[0] === 'undefined') {
         Debug.Log("Existiert nicht.");
     }
@@ -124,7 +150,7 @@ static function showOption(){
     fieldOption3.GetComponent.<Text>().text = cG001.txt;
     fieldOption4.GetComponent.<Text>().text = cG001.txt;
     */
-}
+};
 
     // Testbereich
 currentPG = pg001;
