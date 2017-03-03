@@ -11,7 +11,7 @@
   // Erstellt einen neuen Paragraphen
   function Paragraph(txt: String) {
     this.txt = txt;
-    optionCount = 0;
+    optionCount = 1;
     optionArray = [];
     extraPG = [];
     // kann vielleicht weg

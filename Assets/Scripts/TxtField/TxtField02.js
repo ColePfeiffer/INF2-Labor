@@ -7,15 +7,12 @@
     // 3 = 4
     var tempOptionIndex:int =  1;
     
-    //important.currentPG = important.pg001;
-    //important.showNextPG(tempOptionIndex);
-    //important.showOption();
-
+    important.showNextPG(tempOptionIndex);
 }
 
 
 
-/*
+/* #weg
 if(typeof arrayName[index] === 'undefined') {
     // does not exist
 }
@@ -23,12 +20,4 @@ else {
     // does exist
 }
 
-----------
-
-if (inventory[i].worldObject == null && inventory[i].texRepresentation == null)
-{
-    inventory[i] = item;
-    print("Added item");
-    return;
-}
 */

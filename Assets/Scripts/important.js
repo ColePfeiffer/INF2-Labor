@@ -20,6 +20,15 @@ fieldOption4 = ifieldOption4;
 fieldPG = ifieldPG;
 
 // ########################
+// Wichtige Variablen
+// ########################
+// Hier wird der aktuelle Paragraph (als Objekt) abgespeichert
+static var currentPG = new Paragraph(" ");
+// Hier wird der vorletzte Paragraph (als Objekt) abgespeichert
+// am besten als Arrayeintrag?!
+static var lastPG = new Paragraph(" ");
+
+// ########################
 // Erstellen der Abschnitte
 // ########################
 // siehe auch Spreadsheet
@@ -42,15 +51,9 @@ var pg001a = new Paragraph("Du fühlst dich motiviert und siehst den Jobwechsel 
 var pg001b = new Paragraph("Das Gehalt ist lächerlich gering, dein Chef wird ein Arschloch sein und deine Kollegen werden sehr wahrscheinlich nicht einmal in der Lage sein, halbwegs vernünftige Sätze hervorzubringen. So ist es doch immer. So war es beim letzten Job und bei dem davor… und wohl auch bei dem davor, aber das weißt du schon gar nicht mehr. Es bringt nichts. Irgendwie muss das Geld auf den Tisch. Unrasiert und mit tiefen Augenringen greifst du zu deinem Hitzeschutzanzug und verlässt dein viel zu kleines, heruntergekommenes Apartment.");
 var pg002 = new Paragraph("So geht's dann wohl weiter.");
 var pg003 = new Paragraph("Dann so!");
-
 // pg001
 pg001.addOption("Optimistisch", "#", pg001a);
 pg001.addOption("Grumpy", "#", pg001b);
-/*
-// pg001a
-pg001a.addOption("Option 1", "#", "pg002");
-*/
-
 // pg001b
 pg001b.addOption("Option 1", "#", pg002);
 pg001b.addOption("Option 2", "#", pg002);
@@ -59,51 +62,36 @@ pg001b.addOption("Option 3", "#", pg003);
 // Überprüfung
 // Debug.Log(pg001.optionArray[0]["optionTxt"]);
 
-
 // ########################
-// Testbereich - kann nachher weg
+// Testbereich - #testing #weg
 // ########################
-public static var test01 : boolean = false;
-public static var test02 : boolean = false;
-public static var test03 : boolean = false;
-public static var test04 : boolean = false;
 
 // ########################
 // Wird bei GameStart durchgeführt
 // ########################
 function Start () {
-    Debug.Log("Test 33");
-    fieldPG.GetComponent.<Text>().text = "Alles noch total in der Testphase, juchuu.";
-    yield WaitForSeconds(2);
-    fieldPG.GetComponent.<Text>().text = cG001.txt;
-    fieldOption1.GetComponent.<Text>().text = cG001.optionArray[0]["optionTxt"];
-    fieldOption2.GetComponent.<Text>().text = cG001.txt;
-    fieldOption3.GetComponent.<Text>().text = cG001.txt;
-    fieldOption4.GetComponent.<Text>().text = cG001.txt;
+    //fieldPG.GetComponent.<Text>().text = "Alles noch total in der Testphase, juchuu.";
+    //yield WaitForSeconds(2);
+    //fieldPG.GetComponent.<Text>().text = cG001.txt;
+    Debug.Log("Testing 1 beendet.");
+    // #weg
+    currentPG = pg001;
 }
 
 // ########################
 // Andere Funktionen
 // ########################
 
-// wird ausgeführt, sobald ein Knopf gedrückt wird - also eine Option bestätigt wird
-//var tempOptionIndex:int;
-// Hier wird der aktuelle Paragraph (name) abgespeichert
-//static var currentPG:String;
-static var currentPG = new Paragraph(" ");
-// Hier wird der vorletzte Paragraph (name) abgespeichert
-// am besten als Arrayeintrag?!
-static var lastPG = new Paragraph(" ");
 
+// wird ausgeführt, sobald ein Knopf gedrückt wird - also eine Option bestätigt wird
 static function showNextPG(tempOptionIndex:int){
     // Neusetzen von lastPG und currentPG
     lastPG = currentPG;
-    //Debug.Log(currentPG.optionArray[tempOptionIndex]["nextPG"].txt);
     currentPG = currentPG.optionArray[tempOptionIndex]["nextPG"];
+    //Debug.Log(currentPG.optionArray[tempOptionIndex]["nextPG"].txt);
 
     // Ändern des Textes
     fieldPG.GetComponent.<Text>().text = currentPG.txt;
-
     // Optionen werden ausgegeben
     showOption();
 };
@@ -124,26 +112,63 @@ static function showOption(){
     
         */
 
-        var arrayTest = currentPG.optionsArray;
+    var arrayTest = currentPG.optionArray;
+    //Debug.Log(currentPG.optionArray[0]["optionTxt"]);
+    
+    //Anderer Versuch
+    switch (currentPG.optionCount)
+    {
+        case 4:
+            fieldOption1.GetComponent.<Text>().text = currentPG.optionArray[0]["optionTxt"];
+            fieldOption2.GetComponent.<Text>().text = currentPG.optionArray[1]["optionTxt"];
+            fieldOption3.GetComponent.<Text>().text = currentPG.optionArray[2]["optionTxt"];
+            fieldOption4.GetComponent.<Text>().text = currentPG.optionArray[3]["optionTxt"];
+            break;
+        case 3:
+            fieldOption1.GetComponent.<Text>().text = currentPG.optionArray[0]["optionTxt"];
+            fieldOption2.GetComponent.<Text>().text = currentPG.optionArray[1]["optionTxt"];
+            fieldOption3.GetComponent.<Text>().text = currentPG.optionArray[2]["optionTxt"];
+            fieldOption4.GetComponent.<Text>().text = "  ";
+            break;
+        case 2:
+            fieldOption1.GetComponent.<Text>().text = currentPG.optionArray[0]["optionTxt"];
+            fieldOption2.GetComponent.<Text>().text = currentPG.optionArray[1]["optionTxt"];
+            fieldOption3.GetComponent.<Text>().text = "  ";
+            fieldOption4.GetComponent.<Text>().text = "  ";
+            break;
+        case 1:
+            fieldOption1.GetComponent.<Text>().text = currentPG.optionArray[0]["optionTxt"];
+            fieldOption2.GetComponent.<Text>().text = "  ";
+            fieldOption3.GetComponent.<Text>().text = "  ";
+            fieldOption4.GetComponent.<Text>().text = "  ";
+            break;
+        default:
+            Debug.Log("Keine Antworten definiert.");
+            break;
+    }
 
-        for (var option:Hashtable in arrayTest){
-            Debug.Log(option["optionTxt"]);
+    /*
+    // For-Each Schleife 1
+    for (var option:Hashtable in arrayTest){
+        Debug.Log(option["optionTxt"]);
+    }
+    Debug.Log("For-Each abgeschlossen.");
+
+    // For-Schleife 2
+    Debug.Log("ForSchleife beginnt.");
+    for (var i = 0; i <= 3; i++){
+        Debug.Log("Innerhalb der Schlaufe...");
+
+        if(typeof currentPG.optionArray[i] === 'undefined') {
+            Debug.Log("Existiert nicht.");
         }
+        else {
+            Debug.Log("Existiert");
+        }
+    }
+    Debug.Log("ForSchleife abgeschlossen.");
 
-    /*currentPG.optionArray.forEach(function(currentPG.optionArray) {
-        if (arrayToLookThrough.valid) {
-            out(arrayToLookThrough.txt);
-        };
-    });
     */
-
-    if(typeof currentPG.optionArray[0] === 'undefined') {
-        Debug.Log("Existiert nicht.");
-    }
-    else {
-        Debug.Log("Existiert");
-    }
-
     /*
     fieldOption1.GetComponent.<Text>().text = cG001.optionArray[0]["optionTxt"];
     fieldOption2.GetComponent.<Text>().text = cG001.txt;
@@ -152,9 +177,10 @@ static function showOption(){
     */
 };
 
-    // Testbereich
-currentPG = pg001;
-showNextPG(1);
+// ##########################################################
+//  Testbereich
+// ##########################################################
+
 
 // Wird gerade nicht gebraucht
 /*
