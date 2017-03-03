@@ -1,4 +1,6 @@
-﻿// ########################
+﻿/*
+
+// ########################
 // Für die Textausgabe
 // ########################
 public static var fieldOption1:GameObject;

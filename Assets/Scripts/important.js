@@ -28,20 +28,33 @@ fieldPG = ifieldPG;
 // Naja, die muss doch anders ablaufen... oder sollte es wohl. Geht auch so mit Variablensetzung im nächsten Abschnitt, aber naja.
 // Nur temporär!
 var cG001 = new Paragraph("Willkommen. Welche Fähigkeiten bringst du mit?");
-cG001.addOption("Klettern", "#", "cG002");
-cG001.addOption("Schwimmen", "#", "cG002");
-cG001.addOption("Tee trinken", "#", "cG002");
+var cG002 = new Paragraph("Test Nummero 2");
+// Erstellen der Antworten
+cG001.addOption("Klettern", "#", cG002);
+cG001.addOption("Schwimmen", "#", cG002);
+cG001.addOption("Tee trinken", "#", cG002);
+// Testausgabe
 Debug.Log("Erstellung erfolgreich.");
-
+// _____________________________________________________________
 // Richtige Abschnitte
 public static var pg001 = new Paragraph("Ein neuer Tag bricht an und dein Wecker reißt dich in hohen Tönen aus deinen Träumen. Verschlafen streifst du deine Bettdecke weg, schlägst auf ihn und wirfst einen Blick aus dem Fenster. Kein Schnee mehr. Hellster Sonnenschein strömt in dein Zimmer. Um die Uhrzeit in der Jahreszeit? Das ist selbst für New Brooklyn untypisch. Du schüttelst den Kopf. Wahrscheinlich wirst du noch einige Jahre brauchen, um dich daran zu gewöhnen. Seit der D-2050 Katastrophe spielt die Welt verrückt – auch das Wetter kann nicht anders, als aus seinen gewohnten Mustern auszubrechen. Wie auch immer. Du solltest aufstehen. Heute startet dein erster Tag beim McMillian-Institut für neuronale Genforschung. Sicherheitsdienst.");
-pg001.addOption("Optimistisch", "#", "pg001a");
-pg001.addOption("Grumpy", "#", "pg001b");
-
 var pg001a = new Paragraph("Du fühlst dich motiviert und siehst den Jobwechsel als Chance auf einen Neuanfang. Sicher ist das aufregender als den Lebensunterhalt durch Tellerwaschen zu finanzieren. Zumindest hoffst du das. Rasch machst du dich fertig, greifst zu deinem Hitzeschutzanzug und verlässt dein kleines Apartment.");
-pg001a.addOption("Option 1", "#", "pg002");
 var pg001b = new Paragraph("Das Gehalt ist lächerlich gering, dein Chef wird ein Arschloch sein und deine Kollegen werden sehr wahrscheinlich nicht einmal in der Lage sein, halbwegs vernünftige Sätze hervorzubringen. So ist es doch immer. So war es beim letzten Job und bei dem davor… und wohl auch bei dem davor, aber das weißt du schon gar nicht mehr. Es bringt nichts. Irgendwie muss das Geld auf den Tisch. Unrasiert und mit tiefen Augenringen greifst du zu deinem Hitzeschutzanzug und verlässt dein viel zu kleines, heruntergekommenes Apartment.");
-pg001b.addOption("Option 1", "#", "pg003");
+var pg002 = new Paragraph("So geht's dann wohl weiter.");
+var pg003 = new Paragraph("Dann so!");
+
+// pg001
+pg001.addOption("Optimistisch", "#", pg001a);
+pg001.addOption("Grumpy", "#", pg001b);
+/*
+// pg001a
+pg001a.addOption("Option 1", "#", "pg002");
+*/
+
+// pg001b
+pg001b.addOption("Option 1", "#", pg002);
+pg001b.addOption("Option 2", "#", pg002);
+pg001b.addOption("Option 3", "#", pg003);
 
 // Überprüfung
 // Debug.Log(pg001.optionArray[0]["optionTxt"]);
@@ -86,26 +99,13 @@ static var lastPG = new Paragraph(" ");
 static function showNextPG(tempOptionIndex:int){
     // Neusetzen von lastPG und currentPG
     lastPG = currentPG;
-    Debug.Log(currentPG.optionArray[0]["nextPG"]);
-    
-    
-    // Testbereich
-    // Hier steckt der Name des nächsten PG-Objekts drin
-    var tempString = currentPG.optionArray[tempOptionIndex]["nextPG"];
+    //Debug.Log(currentPG.optionArray[tempOptionIndex]["nextPG"].txt);
+    currentPG = currentPG.optionArray[tempOptionIndex]["nextPG"];
 
-    var newVar : int = this.GetType().GetField("tempString").GetValue(this);
-    Debug.Log(newWar);
-    Debug.Log(currentPG.optionArray[tempOptionIndex]["nextPG"]);
-    //currentPG = currentPG.optionArray[tempOptionIndex]["nextPG"];
-
-
-
-
-    Debug.Log("3. bestanden");
-    
     // Ändern des Textes
     fieldPG.GetComponent.<Text>().text = currentPG.txt;
 
+    // Optionen werden ausgegeben
     showOption();
 }
 
