@@ -1,5 +1,5 @@
 ﻿// ########################
-// Für die Textausgabe
+// Setup der Textausgabe
 // ########################
 public static var fieldOption1:GameObject;
 public static var fieldOption2:GameObject;
@@ -7,7 +7,7 @@ public static var fieldOption3:GameObject;
 public static var fieldOption4:GameObject;
 public static var fieldPG:GameObject;
 
-// Kann ggf. weg, sobald ich herausgefunden habe, wie ich GameObjekte direkt zuordnen kann?
+// Sind GameObjekte auch direkt zuordbar?
 var ifieldOption1:GameObject;
 var ifieldOption2:GameObject;
 var ifieldOption3:GameObject;
@@ -19,13 +19,22 @@ fieldOption3 = ifieldOption3;
 fieldOption4 = ifieldOption4;
 fieldPG = ifieldPG;
 
+// Zur Bestimmung, ob entsprechendes Feld klickbar ist oder nicht
+static var fieldOptionClickable1 : boolean = true;
+static var fieldOptionClickable2 : boolean = true;
+static var fieldOptionClickable3 : boolean = true;
+static var fieldOptionClickable4 : boolean = true;
+
+// #############################################################
+// *************************************************************
 // ########################
 // Wichtige Variablen
 // ########################
-// Hier wird der aktuelle Paragraph (als Objekt) abgespeichert
-static var currentPG = new Paragraph(" ");
-// Hier wird der vorletzte Paragraph (als Objekt) abgespeichert
-static var lastPG = new Paragraph(" ");
+// *************************************************************
+// #############################################################
+
+static var currentPG = new Paragraph(" "); // Hier wird der aktuelle Paragraph (als Objekt) abgespeichert
+static var lastPG = new Paragraph(" "); // Hier wird der vorletzte Paragraph (als Objekt) abgespeichert
 
 // am besten als Arrayeintrag?!
 // Hier die jeweiligen Abschnitte
@@ -33,12 +42,14 @@ static var pgHistoryArray = [];
 // Hier werden die aktuellen Tags eingereiht
 static var tagHistoryArray = [];
 
-
+// ########################
 // Charakterwerte
-// müssen durch Startfunktion angepasst werden
-static var heroStrength:int = 12;
-static var heroArmor:int = 0;
-static var heroHP:int = 30;
+// ########################
+
+// müssen durch Startfunktion angepasst werden #wichtig
+static var heroStrength:int = 14;
+static var heroArmor:int = 1;
+static var heroHP:int = 35;
 
 // Wenn ich die Inhalte ändern möchte, sollte ich wohl nicht mit push arbeiten, oder?
 // Oder mit Slice?
@@ -64,6 +75,7 @@ array.length = 3;
 snippet.log("After: " + array.join(", "));
 */
 
+// _______________________________________________________________________________________________________________________________________________________________________________________
 
 // ########################
 // Erstellen der Abschnitte
@@ -79,8 +91,6 @@ var cG002 = new Paragraph("Test Nummero 2");
 cG001.addOption("Klettern", "#", cG002);
 cG001.addOption("Schwimmen", "#", cG002);
 cG001.addOption("Tee trinken", "#", cG002);
-// Testausgabe
-Debug.Log("Erstellung erfolgreich.");
 // _____________________________________________________________
 // Richtige Abschnitte
 public static var pg001 = new Paragraph("Ein neuer Tag bricht an und dein Wecker reißt dich in hohen Tönen aus deinen Träumen. Verschlafen streifst du deine Bettdecke weg, schlägst auf ihn und wirfst einen Blick aus dem Fenster. Kein Schnee mehr. Hellster Sonnenschein strömt in dein Zimmer. Um die Uhrzeit in der Jahreszeit? Das ist selbst für New Brooklyn untypisch. Du schüttelst den Kopf. Wahrscheinlich wirst du noch einige Jahre brauchen, um dich daran zu gewöhnen. Seit der D-2050 Katastrophe spielt die Welt verrückt – auch das Wetter kann nicht anders, als aus seinen gewohnten Mustern auszubrechen. Wie auch immer. Du solltest aufstehen. Heute startet dein erster Tag beim McMillian-Institut für neuronale Genforschung. Sicherheitsdienst.");
@@ -88,44 +98,38 @@ var pg001a = new Paragraph("Du fühlst dich motiviert und siehst den Jobwechsel 
 var pg001b = new Paragraph("Das Gehalt ist lächerlich gering, dein Chef wird ein Arschloch sein und deine Kollegen werden sehr wahrscheinlich nicht einmal in der Lage sein, halbwegs vernünftige Sätze hervorzubringen. So ist es doch immer. So war es beim letzten Job und bei dem davor… und wohl auch bei dem davor, aber das weißt du schon gar nicht mehr. Es bringt nichts. Irgendwie muss das Geld auf den Tisch. Unrasiert und mit tiefen Augenringen greifst du zu deinem Hitzeschutzanzug und verlässt dein viel zu kleines, heruntergekommenes Apartment.");
 var pg002 = new Paragraph("So geht's dann wohl weiter.");
 var pg003 = new Paragraph("Dann so!");
+// Kampftest
+var pg004 = new Paragraph("Oh nein, da sind vier aggressive Hühner, die dich angreifen.", 8, 20, 0);
 // pg001
 pg001.addOption("Optimistisch", "#", pg001a, pg001b, 50);
-pg001.addOption("Grumpy", "#", pg001b);
+pg001.addOption("Grumpy", "#", pg004);
 // pg001b
 pg001b.addOption("Option 1", "#", pg002);
 pg001b.addOption("Option 2", "#", pg002);
 pg001b.addOption("Option 3", "#", pg003);
+// pg004
+pg004.addOption("Weitergehen", "#", pg002);
+pg004.addOption("Erstmal ausruhen", "#", pg003);
 
-// Überprüfung
-// Debug.Log(pg001.optionArray[0]["optionTxt"]);
 
-// ########################
-// Testbereich - #testing #weg
-// ########################
-static var fieldOptionClickable1 : boolean = true;
-static var fieldOptionClickable2 : boolean = true;
-static var fieldOptionClickable3 : boolean = true;
-static var fieldOptionClickable4 : boolean = true;
+
+
+
+
+
 
     
-// ########################
-// Wird bei GameStart durchgeführt
-// ########################
+
 function Start () {
+    // Auf den Anfang setzen
+    currentPG = pg001;
     //fieldPG.GetComponent.<Text>().text = "Alles noch total in der Testphase, juchuu.";
     //yield WaitForSeconds(2);
     //fieldPG.GetComponent.<Text>().text = cG001.txt;
-    Debug.Log("Testing 1 beendet.");
-    // #weg
-    currentPG = pg001;
 }
 
-// ########################
-// Andere Funktionen
-// ########################
-
-
-// wird ausgeführt, sobald ein Knopf gedrückt wird - also eine Option bestätigt wird
+// wird aufgerufen, sobald eine Option ausgewählt wurde
+// gibt den nächsten Abschnitt aus
 static function showNextPG(tempOptionIndex:int){
     // Neusetzen von lastPG und currentPG
     lastPG = currentPG;
@@ -133,8 +137,13 @@ static function showNextPG(tempOptionIndex:int){
 
     if(currentPG.battleEncounter){
         fieldPG.GetComponent.<Text>().text = currentPG.txt;
-        fight();
-        showOption();
+        if (fight()){
+            showOption();
+        }
+        else{
+            // Gameover
+            fieldPG.GetComponent.<Text>().text = "Game Over!";
+        }
 
     }else{
         // Setzen des Texts im entsprechenden Textfeld
@@ -144,7 +153,10 @@ static function showNextPG(tempOptionIndex:int){
     }
 };
 
+// Gibt die Optionen aus
+// Irgendwas buggy?
 static function showOption(){
+    Debug.Log(currentPG.optionCount);
       
     /*
     // Beispiel zum Verständnis
@@ -178,6 +190,7 @@ static function showOption(){
         case 2:
             fieldOption1.GetComponent.<Text>().text = currentPG.optionArray[0]["optionTxt"];
             fieldOption2.GetComponent.<Text>().text = currentPG.optionArray[1]["optionTxt"];
+            Debug.Log("hmpf?");
             fieldOption3.GetComponent.<Text>().text = "  ";
             fieldOption4.GetComponent.<Text>().text = "  ";
             fieldOptionClickable3 = false;
@@ -198,6 +211,7 @@ static function showOption(){
     }
 }
 
+// Durchgang einer Kampfrunde
 static function battleRound(type:String, strength:int){
     var roll20 = Random.Range(1, 21);
     var damage1:int;
@@ -235,61 +249,41 @@ static function battleRound(type:String, strength:int){
     if(type=="enemy"){
         currentPG.enemyHP-=damage1-currentPG.enemyArmor;
         heroHP-=damage2-heroArmor;
-        return "Dein Gegner fügt dir "+(damage2-heroArmor)+" Schaden zu. Er nimmt dabei "+(damage1-currentPG.enemyArmor)+" Schaden und hat noch "+currentPG.enemyHP+" Lebenspunkte übrig.";
+        return "Dein Gegner fügt dir "+(damage2-heroArmor)+" Schaden zu und verliert "+(damage1-currentPG.enemyArmor)+" LP.";
     }else{
         heroHP-=damage1-heroArmor;
         currentPG.enemyHP-=damage2-currentPG.enemyArmor;
-        return "Du fügst deinem Gegner "+(damage2-currentPG.enemyArmor)+" Schaden zu. Du nimmt dabei "+(damage1-heroArmor)+" Schaden. Dein Gegner hat "+currentPG.enemyHP+" Lebenspunkte übrig.";
+        return "Du verursachst "+(damage2-currentPG.enemyArmor)+" Schaden und verlierst "+(damage1-heroArmor)+" LP.";
     }
 }
 
-
-//#achtung
+// Ein kompletter Kampf
 static function fight(){
     var temp:String;
-    while(heroHP>0||currentPG.enemyHP>0){
-        temp = battleRound("hero", heroStrength);
-        fieldPG.GetComponent.<Text>().text = temp;
-        // Wait for 1 Second
-        // StartCoroutine(wait(2));
-        System.Threading.Thread.Sleep(1000);
-        if (heroHP>0||currentPG.enemyHP>0){
-            temp = battleRound("enemy", currentPG.enemyStrength);
-            fieldPG.GetComponent.<Text>().text = temp;
-            // Wait for 1 second
-            System.Threading.Thread.Sleep(1000);
+    var roundCounter:int = 1;
+    while((heroHP>0) && (currentPG.enemyHP>0)){
+        temp += roundCounter+". Runde: "+battleRound("hero", heroStrength);
+        if ((heroHP>0) && (currentPG.enemyHP>0)){
+            temp += battleRound("enemy", currentPG.enemyStrength)+"\n";
+            roundCounter++;
         }else{
             break;
         }
     }
+    if (heroHP>0){
+        fieldPG.GetComponent.<Text>().text = temp+"Du siegst.";
+        return true;
+    }
+    else{
+        fieldPG.GetComponent.<Text>().text = temp+"Du stirbst in diesem Kampf.";
+        return false;
+    }
 }
-
-/*
-// Funktioniert nicht, weil static?
-    static function wait(seconds:int){
-    yield WaitForSeconds(seconds);
-}
-*/
 
 // ##########################################################
 //  Testbereich
 // ##########################################################
 
-
-// Wird gerade nicht gebraucht
-/*
-
-// Wird ständig überprüft
-function Update(){
-
-}
-
-// Bei Mausklick aufs entsprechende Objekt
-function OnMouseDown () {
-
-}
-
-*/
 /*
 // ########################
 // Ideen
