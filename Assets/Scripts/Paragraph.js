@@ -67,8 +67,72 @@
         extraPG.push(extraPGTxt);
   }
 
-  function addProcent(){
 
-  }
+
+      // Konstruktor?
+      var enemeyStrength:int = 8;
+      var enemyArmor:int = 0;
+      var enemyHP:int = 14;
+
+      // Aus anderem Skript einlesen
+      var heroStrength:int = 12;
+      var heroArmor:int = 0;
+      var heroHP:int = 30;
+
+      function battleRound(type:String){
+          var roll20 = Random.Range(1, 21);
+          var damage1:int;
+          var damage2:int;
+
+          if (heroStrength+roll20>=40){
+              damage1 = 0;
+              damage2 = 6;
+          }else if(heroStrength+roll20>=35){
+              damage1 = 0;
+              damage2 = 5;
+          }else if(heroStrength+roll20>=30){
+              damage1 = 1;
+              damage2 = 4;
+          }else if(heroStrength+roll20>=25){
+              damage1 = 1;
+              damage2 = 3;
+          }else if(heroStrength+roll20>=20){
+              damage1 = 2;
+              damage2 = 3;
+          }else if(heroStrength+roll20>=15){
+              damage1 = 2;
+              damage2 = 2;
+          }else if(heroStrength+roll20>=10){
+              damage1 = 3;
+              damage2 = 1;
+          }else if(heroStrength+roll20>=5){
+              damage1 = 4;
+              damage2 = 1;
+          }else{
+              damage1 = 4;
+              damage2 = 0;
+          }
+      
+          if(type=="enemy"){
+              enemyHP-=damage1-enemyArmor;
+              heroHP-=damage2-heroArmor;
+          }else{
+              heroHP-=damage1-heroArmor;
+              enemyHP-=damage2-enemyArmor;
+          }
+      }
+
+
+      function fight(){
+          while(heroHP<=0||enemyHP<=0){
+              battleRound("hero");
+              if (heroHP<=0||enemyHP<=0){
+                  battleRound("enemy");
+              }else{
+                  break;
+              }
+          }
+      }
+
 
 }
