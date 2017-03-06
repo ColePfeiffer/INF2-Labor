@@ -33,6 +33,13 @@ static var pgHistoryArray = [];
 // Hier werden die aktuellen Tags eingereiht
 static var tagHistoryArray = [];
 
+
+// Charakterwerte
+// müssen durch Startfunktion angepasst werden
+static var heroStrength:int = 12;
+static var heroArmor:int = 0;
+static var heroHP:int = 30;
+
 // Wenn ich die Inhalte ändern möchte, sollte ich wohl nicht mit push arbeiten, oder?
 // Oder mit Slice?
 /*
@@ -124,10 +131,17 @@ static function showNextPG(tempOptionIndex:int){
     lastPG = currentPG;
     currentPG = currentPG.optionArray[tempOptionIndex]["nextPG"];
 
-    // Setzen des Texts im entsprechenden Textfeld
-    fieldPG.GetComponent.<Text>().text = currentPG.txt;
-    // Optionen werden ausgegeben
-    showOption();
+    if(currentPG.battleEncounter){
+        fieldPG.GetComponent.<Text>().text = currentPG.txt;
+        fight();
+        showOption();
+
+    }else{
+        // Setzen des Texts im entsprechenden Textfeld
+        fieldPG.GetComponent.<Text>().text = currentPG.txt;
+        // Optionen werden ausgegeben
+        showOption();
+    }
 };
 
 static function showOption(){
@@ -184,7 +198,78 @@ static function showOption(){
     }
 }
 
+static function battleRound(type:String, strength:int){
+    var roll20 = Random.Range(1, 21);
+    var damage1:int;
+    var damage2:int;
 
+    if (strength+roll20>=40){
+        damage1 = 0;
+        damage2 = 6;
+    }else if(strength+roll20>=35){
+        damage1 = 0;
+        damage2 = 5;
+    }else if(strength+roll20>=30){
+        damage1 = 1;
+        damage2 = 4;
+    }else if(strength+roll20>=25){
+        damage1 = 1;
+        damage2 = 3;
+    }else if(strength+roll20>=20){
+        damage1 = 2;
+        damage2 = 3;
+    }else if(strength+roll20>=15){
+        damage1 = 2;
+        damage2 = 2;
+    }else if(strength+roll20>=10){
+        damage1 = 3;
+        damage2 = 1;
+    }else if(strength+roll20>=5){
+        damage1 = 4;
+        damage2 = 1;
+    }else{
+        damage1 = 4;
+        damage2 = 0;
+    }
+      
+    if(type=="enemy"){
+        currentPG.enemyHP-=damage1-currentPG.enemyArmor;
+        heroHP-=damage2-heroArmor;
+        return "Dein Gegner fügt dir "+(damage2-heroArmor)+" Schaden zu. Er nimmt dabei "+(damage1-currentPG.enemyArmor)+" Schaden und hat noch "+currentPG.enemyHP+" Lebenspunkte übrig.";
+    }else{
+        heroHP-=damage1-heroArmor;
+        currentPG.enemyHP-=damage2-currentPG.enemyArmor;
+        return "Du fügst deinem Gegner "+(damage2-currentPG.enemyArmor)+" Schaden zu. Du nimmt dabei "+(damage1-heroArmor)+" Schaden. Dein Gegner hat "+currentPG.enemyHP+" Lebenspunkte übrig.";
+    }
+}
+
+
+//#achtung
+static function fight(){
+    var temp:String;
+    while(heroHP>0||currentPG.enemyHP>0){
+        temp = battleRound("hero", heroStrength);
+        fieldPG.GetComponent.<Text>().text = temp;
+        // Wait for 1 Second
+        // StartCoroutine(wait(2));
+        System.Threading.Thread.Sleep(1000);
+        if (heroHP>0||currentPG.enemyHP>0){
+            temp = battleRound("enemy", currentPG.enemyStrength);
+            fieldPG.GetComponent.<Text>().text = temp;
+            // Wait for 1 second
+            System.Threading.Thread.Sleep(1000);
+        }else{
+            break;
+        }
+    }
+}
+
+/*
+// Funktioniert nicht, weil static?
+    static function wait(seconds:int){
+    yield WaitForSeconds(seconds);
+}
+*/
 
 // ##########################################################
 //  Testbereich

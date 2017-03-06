@@ -7,6 +7,10 @@
   // Für weitere Abschnitte
   var extraPGCheck: boolean = false;
   var extraPG: Array;
+  // Für Kampf
+  var enemyStrength:int;
+  var enemyArmor:int;
+  var enemyHP:int;
 
 
   // Erstellt einen neuen Paragraphen
@@ -19,13 +23,16 @@
     battleEncounter = false;
   }
 
-  function Paragraph(txt:String, battle:boolean) {
+  function Paragraph(txt:String, enemyStrength:int, enemyHP:int, enemyArmor:int) {
       this.txt = txt;
       optionCount = 1;
       optionArray = [];
       extraPG = [];
-      // kann vielleicht weg
+      // Für Kampfszene
       battleEncounter = true;
+      this.enemyStrength = enemyStrength;
+      this.enemyArmor = enemyArmor;
+      this.enemyHP = enemyHP;
   }
 
   // Fügt eine Antwortoption hinzu, die mit einem Abschnitt verknüpft ist
@@ -67,45 +74,42 @@
         extraPG.push(extraPGTxt);
   }
 
-
-
-      // Konstruktor?
-      var enemeyStrength:int = 8;
-      var enemyArmor:int = 0;
-      var enemyHP:int = 14;
-
+      // muss wahrscheinlich in den anderen dings, important
+      // Abfrage in nextPG ob Kampf existiert, dann anderes current errechnen
       // Aus anderem Skript einlesen
+      /*
       var heroStrength:int = 12;
       var heroArmor:int = 0;
       var heroHP:int = 30;
-
-      function battleRound(type:String){
+      */
+      /*
+      function battleRound(type:String, strength:int){
           var roll20 = Random.Range(1, 21);
           var damage1:int;
           var damage2:int;
 
-          if (heroStrength+roll20>=40){
+          if (strength+roll20>=40){
               damage1 = 0;
               damage2 = 6;
-          }else if(heroStrength+roll20>=35){
+          }else if(strength+roll20>=35){
               damage1 = 0;
               damage2 = 5;
-          }else if(heroStrength+roll20>=30){
+          }else if(strength+roll20>=30){
               damage1 = 1;
               damage2 = 4;
-          }else if(heroStrength+roll20>=25){
+          }else if(strength+roll20>=25){
               damage1 = 1;
               damage2 = 3;
-          }else if(heroStrength+roll20>=20){
+          }else if(strength+roll20>=20){
               damage1 = 2;
               damage2 = 3;
-          }else if(heroStrength+roll20>=15){
+          }else if(strength+roll20>=15){
               damage1 = 2;
               damage2 = 2;
-          }else if(heroStrength+roll20>=10){
+          }else if(strength+roll20>=10){
               damage1 = 3;
               damage2 = 1;
-          }else if(heroStrength+roll20>=5){
+          }else if(strength+roll20>=5){
               damage1 = 4;
               damage2 = 1;
           }else{
@@ -126,15 +130,16 @@
       }
 
 
+      //#achtung
       function fight(){
           while(heroHP<=0||enemyHP<=0){
-              battleRound("hero");
+              battleRound("hero", 12);
               if (heroHP<=0||enemyHP<=0){
-                  battleRound("enemy");
+                  battleRound("enemy", 14);
               }else{
                   break;
               }
           }
-      }
+      }*/
 
 }
