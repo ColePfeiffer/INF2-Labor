@@ -47,7 +47,7 @@ static var tagHistoryArray = [];
 // ########################
 
 // müssen durch Startfunktion angepasst werden #wichtig
-static var heroStrength:int = 14;
+static var heroStrength:int = 19;
 static var heroArmor:int = 1;
 static var heroHP:int = 35;
 
@@ -93,20 +93,29 @@ cG001.addOption("Schwimmen", "#", cG002);
 cG001.addOption("Tee trinken", "#", cG002);
 // _____________________________________________________________
 // Richtige Abschnitte
-public static var pg001 = new Paragraph("Ein neuer Tag bricht an und dein Wecker reißt dich in hohen Tönen aus deinen Träumen. Verschlafen streifst du deine Bettdecke weg, schlägst auf ihn und wirfst einen Blick aus dem Fenster. Kein Schnee mehr. Hellster Sonnenschein strömt in dein Zimmer. Um die Uhrzeit in der Jahreszeit? Das ist selbst für New Brooklyn untypisch. Du schüttelst den Kopf. Wahrscheinlich wirst du noch einige Jahre brauchen, um dich daran zu gewöhnen. Seit der D-2050 Katastrophe spielt die Welt verrückt – auch das Wetter kann nicht anders, als aus seinen gewohnten Mustern auszubrechen. Wie auch immer. Du solltest aufstehen. Heute startet dein erster Tag beim McMillian-Institut für neuronale Genforschung. Sicherheitsdienst.");
+var pg001 = new Paragraph("Ein neuer Tag bricht an und dein Wecker reißt dich in hohen Tönen aus deinen Träumen. Verschlafen streifst du deine Bettdecke weg, schlägst auf ihn und wirfst einen Blick aus dem Fenster. Kein Schnee mehr. Hellster Sonnenschein strömt in dein Zimmer. Um die Uhrzeit in der Jahreszeit? Das ist selbst für New Brooklyn untypisch. Du schüttelst den Kopf. Wahrscheinlich wirst du noch einige Jahre brauchen, um dich daran zu gewöhnen. Seit der D-2050 Katastrophe spielt die Welt verrückt – auch das Wetter kann nicht anders, als aus seinen gewohnten Mustern auszubrechen. Wie auch immer. Du solltest aufstehen. Heute startet dein erster Tag beim McMillian-Institut für neuronale Genforschung. Sicherheitsdienst.");
 var pg001a = new Paragraph("Du fühlst dich motiviert und siehst den Jobwechsel als Chance auf einen Neuanfang. Sicher ist das aufregender als den Lebensunterhalt durch Tellerwaschen zu finanzieren. Zumindest hoffst du das. Rasch machst du dich fertig, greifst zu deinem Hitzeschutzanzug und verlässt dein kleines Apartment.");
 var pg001b = new Paragraph("Das Gehalt ist lächerlich gering, dein Chef wird ein Arschloch sein und deine Kollegen werden sehr wahrscheinlich nicht einmal in der Lage sein, halbwegs vernünftige Sätze hervorzubringen. So ist es doch immer. So war es beim letzten Job und bei dem davor… und wohl auch bei dem davor, aber das weißt du schon gar nicht mehr. Es bringt nichts. Irgendwie muss das Geld auf den Tisch. Unrasiert und mit tiefen Augenringen greifst du zu deinem Hitzeschutzanzug und verlässt dein viel zu kleines, heruntergekommenes Apartment.");
-var pg002 = new Paragraph("So geht's dann wohl weiter.");
-var pg003 = new Paragraph("Dann so!");
+
+var pg002 = new Paragraph("Nummer 2. So geht's dann wohl weiter.");
+var pg003 = new Paragraph("Nummer 3. Dann so! Oh nein, da sind böse Hühner.");
+var pg005 = new Paragraph("Nummer 4. Da ist ein großer Wald vor dir. Was machst du?");
 // Kampftest
 var pg004 = new Paragraph("Oh nein, da sind vier aggressive Hühner, die dich angreifen.", 8, 20, 0);
+
+
 // pg001
 pg001.addOption("Optimistisch", "#", pg001a, pg001b, 50);
-pg001.addOption("Grumpy", "#", pg004);
+pg001.addOption("Im Traum nach einem Kampf suchen", "#", pg003);
+
 // pg001b
 pg001b.addOption("Option 1", "#", pg002);
 pg001b.addOption("Option 2", "#", pg002);
 pg001b.addOption("Option 3", "#", pg003);
+
+// pg003
+pg003.addOption("Kämpfen", "#", pg004);
+
 // pg004
 pg004.addOption("Weitergehen", "#", pg002);
 pg004.addOption("Erstmal ausruhen", "#", pg003);
@@ -123,9 +132,9 @@ pg004.addOption("Erstmal ausruhen", "#", pg003);
 function Start () {
     // Auf den Anfang setzen
     currentPG = pg001;
-    //fieldPG.GetComponent.<Text>().text = "Alles noch total in der Testphase, juchuu.";
+    fieldPG.GetComponent.<Text>().text = currentPG.txt;
+    showOption();
     //yield WaitForSeconds(2);
-    //fieldPG.GetComponent.<Text>().text = cG001.txt;
 }
 
 // wird aufgerufen, sobald eine Option ausgewählt wurde
@@ -135,7 +144,7 @@ static function showNextPG(tempOptionIndex:int){
     lastPG = currentPG;
     currentPG = currentPG.optionArray[tempOptionIndex]["nextPG"];
 
-    if(currentPG.battleEncounter){
+    if(currentPG.battleEncounter==true){
         fieldPG.GetComponent.<Text>().text = currentPG.txt;
         if (fight()){
             showOption();
@@ -156,8 +165,6 @@ static function showNextPG(tempOptionIndex:int){
 // Gibt die Optionen aus
 // Irgendwas buggy?
 static function showOption(){
-    Debug.Log(currentPG.optionCount);
-      
     /*
     // Beispiel zum Verständnis
     var x:Hashtable = new Hashtable();
@@ -190,7 +197,6 @@ static function showOption(){
         case 2:
             fieldOption1.GetComponent.<Text>().text = currentPG.optionArray[0]["optionTxt"];
             fieldOption2.GetComponent.<Text>().text = currentPG.optionArray[1]["optionTxt"];
-            Debug.Log("hmpf?");
             fieldOption3.GetComponent.<Text>().text = "  ";
             fieldOption4.GetComponent.<Text>().text = "  ";
             fieldOptionClickable3 = false;
@@ -209,7 +215,7 @@ static function showOption(){
             Debug.Log("Keine Antworten definiert.");
             break;
     }
-}
+}    
 
 // Durchgang einer Kampfrunde
 static function battleRound(type:String, strength:int){
@@ -279,6 +285,7 @@ static function fight(){
         return false;
     }
 }
+
 
 // ##########################################################
 //  Testbereich
