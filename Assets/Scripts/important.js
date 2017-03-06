@@ -82,7 +82,7 @@ var pg001b = new Paragraph("Das Gehalt ist lächerlich gering, dein Chef wird ei
 var pg002 = new Paragraph("So geht's dann wohl weiter.");
 var pg003 = new Paragraph("Dann so!");
 // pg001
-pg001.addOption("Optimistisch", "#", pg001a);
+pg001.addOption("Optimistisch", "#", pg001a, pg001b, 50);
 pg001.addOption("Grumpy", "#", pg001b);
 // pg001b
 pg001b.addOption("Option 1", "#", pg002);
@@ -122,23 +122,9 @@ function Start () {
 static function showNextPG(tempOptionIndex:int){
     // Neusetzen von lastPG und currentPG
     lastPG = currentPG;
+    currentPG = currentPG.optionArray[tempOptionIndex]["nextPG"];
 
-    // Für Wahrscheinlichkeiten
-    if (currentPG.optionArray[tempOptionIndex]["hasRandomFactor"]==true){
-        var percentageRoll = Random.Range(1, 101);
-        if (percentageRoll<=currentPG.optionArray[tempOptionIndex]["percent1"]){
-            currentPG = currentPG.optionArray[tempOptionIndex]["nextPG1"];
-        }
-        else {
-            currentPG = currentPG.optionArray[tempOptionIndex]["nextPG2"];
-        }
-    }
-    else{
-        currentPG = currentPG.optionArray[tempOptionIndex]["nextPG"];
-        //Debug.Log(currentPG.optionArray[tempOptionIndex]["nextPG"].txt);
-    }
-
-    // Ändern des Textes
+    // Setzen des Texts im entsprechenden Textfeld
     fieldPG.GetComponent.<Text>().text = currentPG.txt;
     // Optionen werden ausgegeben
     showOption();
