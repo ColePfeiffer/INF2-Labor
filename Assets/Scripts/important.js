@@ -122,8 +122,21 @@ function Start () {
 static function showNextPG(tempOptionIndex:int){
     // Neusetzen von lastPG und currentPG
     lastPG = currentPG;
-    currentPG = currentPG.optionArray[tempOptionIndex]["nextPG"];
-    //Debug.Log(currentPG.optionArray[tempOptionIndex]["nextPG"].txt);
+
+    // Für Wahrscheinlichkeiten
+    if (currentPG.optionArray[tempOptionIndex]["hasRandomFactor"]==true){
+        var percentageRoll = Random.Range(1, 101);
+        if (percentageRoll<=currentPG.optionArray[tempOptionIndex]["percent1"]){
+            currentPG = currentPG.optionArray[tempOptionIndex]["nextPG1"];
+        }
+        else {
+            currentPG = currentPG.optionArray[tempOptionIndex]["nextPG2"];
+        }
+    }
+    else{
+        currentPG = currentPG.optionArray[tempOptionIndex]["nextPG"];
+        //Debug.Log(currentPG.optionArray[tempOptionIndex]["nextPG"].txt);
+    }
 
     // Ändern des Textes
     fieldPG.GetComponent.<Text>().text = currentPG.txt;
