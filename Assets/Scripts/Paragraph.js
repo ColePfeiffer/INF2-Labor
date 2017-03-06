@@ -116,9 +116,12 @@
           if(type=="enemy"){
               enemyHP-=damage1-enemyArmor;
               heroHP-=damage2-heroArmor;
+
+              return "Dein Gegner fügt dir "+(damage2-heroArmor)+" Schaden zu. Er nimmt dabei "+(damage1-enemyArmor)+" Schaden und hat noch "+enemyHP+" Lebenspunkte übrig.";
           }else{
               heroHP-=damage1-heroArmor;
               enemyHP-=damage2-enemyArmor;
+              return "Du fügst deinem Gegner "+(damage2-enemyArmor)+" Schaden zu. Du nimmt dabei "+(damage1-heroArmor)+" Schaden. Dein Gegner hat "+enemyHP+" Lebenspunkte übrig.";
           }
       }
 
@@ -133,6 +136,5 @@
               }
           }
       }
-
 
 }
