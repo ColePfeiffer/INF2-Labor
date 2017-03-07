@@ -53,7 +53,7 @@ static var heroStrength:int = 19;
 static var heroArmor:int = 1;
 static var heroHP:int = 35;
 
-// 
+// Aktive Tags; sowohl Inventar als auch Fähigkeiten
 var activeTags:String;
 
 // Wenn ich die Inhalte ändern möchte, sollte ich wohl nicht mit push arbeiten, oder?
@@ -152,64 +152,35 @@ function modifyTags(tagsToAdd:String) {
     return index == self.indexOf(item);}).join("#");
 }
 
-// exclusionTags.split("#"), activeTags.split("#"))
-activeTags = "peter#hund#mau#miau";
-// Split
-var tags33 = "test#hund#klops#otto#peter#hans#solo#test";
-var tags33inArray = tags33.Split("#"[0]);
+// Gibt true aus, wenn es eine Übereinstimmung gibt
+//checkForMatch("hund#otto#katze#merti#mausi", "otto#kuh#muh#maus#katze");
+function checkForMatch(requiredTags:String, activeTags:String){
+    var thereIsaMatch:boolean = false;
 
-
-
-
-/*
-
-function test32(){
-    var noMatch:boolean = true;
+    // String in Array umwandeln
+    var requiredTagsArray = requiredTags.Split("#"[0]);
+    var activeTagsArray = activeTags.Split("#"[0]);
 
     // List-Var
-    var newList = new List.<String>();
-
-    // Array in List
-    for (var pi:int=0; i<tags33inArray.Length; p++){
-          newList.Add(tags33inArray[p]);
+    var requiredTagsList = new List.<String>();
+    var activeTagsList = new List.<String>();
+    
+    // Array in List umwandeln
+    for (var i1:int=0; i1<requiredTagsArray.Length; i1++){
+        requiredTagsList.Add(requiredTagsArray[i1]);
+    }
+    for (var i2:int=0; i2<activeTagsArray.Length; i2++){
+        activeTagsList.Add(activeTagsArray[i2]);
     }
 
-    for (var i:int=0; i<test2.Length; i++){
-        Debug.Log("For Loop-1: "+i);
-        for (var n:int=0; n<activeTags3.Length; n++){
-           Debug.Log("For Loop-2: "+n);
-           Debug.Log(test2[i]);
-           Debug.Log(activeTags3[n]);
-        //Debug.Log(activeTags3[n]);
-    }
+    // Nach Match durchsuchen
+    for (var i:int=0; i<activeTagsList.Count; i++){
+        if (activeTagsList.Contains(requiredTagsArray[i])){
+            thereIsaMatch = true;
+            break;
+            }
+        }             
 }
-}
-*/
-/*
-function checkPreq(preqTags, activeTags){
-    var activeTags2 = activeTags.Split("#"[0]);
-    var preqTags2 = preqTags.Split("#"[0]);
-
-    for (var i:int=0; int<preqTags2.Length; i++){
-        for (var n:int=0; int<activeTags2.Length; n++){
-            if (preqTags2[i].Contains (activeTags2[n])) {
-                Debug.Log ("Yep.");
-    }
-}
-}}*/
-
-var einTest = new List.<String>();
-einTest.Add("yo");
-einTest.Add("blah");
-einTest.Add("foo");
-einTest.Add("test");
-
-var index = einTest.IndexOf("yo");
-
-if (einTest.Contains("blah")) {
-    Debug.Log ("Yep.");
-}
-// einTest.Contains("test")
 
 // wird aufgerufen, sobald eine Option ausgewählt wurde
 // gibt den nächsten Abschnitt aus
@@ -391,5 +362,14 @@ for (var i = 0; i <= 3; i++){
 }
 Debug.Log("ForSchleife abgeschlossen.");
     
+
+Anderes
+
+var einTest = new List.<String>();
+einTest.Add("yo");
+einTest.Add("blah");
+einTest.Add("foo");
+einTest.Add("test");
+
 
 */
