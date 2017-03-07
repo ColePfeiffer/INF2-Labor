@@ -38,23 +38,12 @@ static var fieldOptionClickable4 : boolean = true;
 static var currentPG = new Paragraph(" "); // Hier wird der aktuelle Paragraph (als Objekt) abgespeichert
 static var lastPG = new Paragraph(" "); // Hier wird der vorletzte Paragraph (als Objekt) abgespeichert
 
-// am besten als Arrayeintrag?!
 // Hier die jeweiligen Abschnitte
 static var pgHistoryArray = [];
 // Hier werden die aktuellen Tags eingereiht
 static var tagHistoryArray = [];
-
-// ########################
-// Charakterwerte
-// ########################
-
-// müssen durch Startfunktion angepasst werden #wichtig
-static var heroStrength:int = 19;
-static var heroArmor:int = 1;
-static var heroHP:int = 35;
-
-// Aktive Tags; sowohl Inventar als auch Fähigkeiten
-var activeTags:String;
+// in Modify reinhauen
+// counter extern lagern
 
 // Wenn ich die Inhalte ändern möchte, sollte ich wohl nicht mit push arbeiten, oder?
 // Oder mit Slice?
@@ -79,6 +68,20 @@ snippet.log("Before: " + array.join(", "));
 array.length = 3;
 snippet.log("After: " + array.join(", "));
 */
+
+
+
+// ########################
+// Charakterwerte
+// ########################
+
+// müssen durch Startfunktion angepasst werden #wichtig
+static var heroStrength:int = 19;
+static var heroArmor:int = 1;
+static var heroHP:int = 35;
+
+// Aktive Tags; sowohl Inventar als auch Fähigkeiten
+var activeTags:String;
 
 // _______________________________________________________________________________________________________________________________________________________________________________________
 
@@ -131,7 +134,13 @@ pg004.addOption("Erstmal ausruhen", "#", pg003);
 
 
 
-
+var test4 = new List.<String>();
+test4.Add("Save 1");
+test4.Add("Save 2");
+test4.Add("Save 3");
+test4.Add("Save 4");
+test4.Add("Save 5");
+test4.Add("Save 6");
     
 
 function Start () {
@@ -140,6 +149,29 @@ function Start () {
     fieldPG.GetComponent.<Text>().text = currentPG.txt;
     showOption();
     //yield WaitForSeconds(2);
+    goBack(test4);
+}
+
+
+
+function goBack(listToWorkWith:List.<String>){
+    var list = listToWorkWith;
+    var length = list.Count;
+    Debug.Log(length);
+    
+    /*for (var test4:String in test4 )
+    {
+                Debug.Log(test4);
+    }
+    */
+
+    if (length-2<=0){
+        Debug.Log("Nee, Index ist zu kurz.");
+    }
+    else{
+        test4.RemoveRange(length-2, 2);
+        Debug.Log("Gemacht.");
+    }
 }
 
 function modifyTags(tagsToAdd:String) {

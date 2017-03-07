@@ -35,6 +35,7 @@
   }
 
   // Fügt eine Antwortoption hinzu, die mit einem Abschnitt verknüpft ist
+  // +addedTags
   function addOption(optionTxt:String, requirements:String, nextPG:Paragraph) {
     var option: Hashtable = new Hashtable();
     option["optionTxt"] = optionTxt;
