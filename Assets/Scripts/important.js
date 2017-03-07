@@ -101,20 +101,21 @@ cG001.addOption("Schwimmen", "#", cG002);
 cG001.addOption("Tee trinken", "#", cG002);
 // _____________________________________________________________
 // Richtige Abschnitte
-var pg001 = new Paragraph("Ein neuer Tag bricht an und dein Wecker reißt dich in hohen Tönen aus deinen Träumen. Verschlafen streifst du deine Bettdecke weg, schlägst auf ihn und wirfst einen Blick aus dem Fenster. Kein Schnee mehr. Hellster Sonnenschein strömt in dein Zimmer. Um die Uhrzeit in der Jahreszeit? Das ist selbst für New Brooklyn untypisch. Du schüttelst den Kopf. Wahrscheinlich wirst du noch einige Jahre brauchen, um dich daran zu gewöhnen. Seit der D-2050 Katastrophe spielt die Welt verrückt – auch das Wetter kann nicht anders, als aus seinen gewohnten Mustern auszubrechen. Wie auch immer. Du solltest aufstehen. Heute startet dein erster Tag beim McMillian-Institut für neuronale Genforschung. Sicherheitsdienst.");
-var pg001a = new Paragraph("Du fühlst dich motiviert und siehst den Jobwechsel als Chance auf einen Neuanfang. Sicher ist das aufregender als den Lebensunterhalt durch Tellerwaschen zu finanzieren. Zumindest hoffst du das. Rasch machst du dich fertig, greifst zu deinem Hitzeschutzanzug und verlässt dein kleines Apartment.");
-var pg001b = new Paragraph("Das Gehalt ist lächerlich gering, dein Chef wird ein Arschloch sein und deine Kollegen werden sehr wahrscheinlich nicht einmal in der Lage sein, halbwegs vernünftige Sätze hervorzubringen. So ist es doch immer. So war es beim letzten Job und bei dem davor… und wohl auch bei dem davor, aber das weißt du schon gar nicht mehr. Es bringt nichts. Irgendwie muss das Geld auf den Tisch. Unrasiert und mit tiefen Augenringen greifst du zu deinem Hitzeschutzanzug und verlässt dein viel zu kleines, heruntergekommenes Apartment.");
+var pg001 = new Paragraph("Text1");
+var pg001a = new Paragraph("Text1 a");
+var pg001b = new Paragraph("Text1 b");
 
-var pg002 = new Paragraph("Nummer 2. So geht's dann wohl weiter.");
-var pg003 = new Paragraph("Nummer 3. Dann so! Oh nein, da sind böse Hühner.");
-var pg005 = new Paragraph("Nummer 4. Da ist ein großer Wald vor dir. Was machst du?");
+var pg002 = new Paragraph("Text 2.");
+var pg003 = new Paragraph("Text 3.");
+var pg005 = new Paragraph("Text 4.");
+
 // Kampftest
 var pg004 = new Paragraph("Oh nein, da sind vier aggressive Hühner, die dich angreifen.", 8, 20, 0);
 
 
 // pg001
 pg001.addOption("Optimistisch", "#", pg001a, pg001b, 50);
-pg001.addOption("Im Traum nach einem Kampf suchen", "#", pg003);
+pg001.addOption("Kampftest", "#", pg003);
 
 // pg001b
 pg001b.addOption("Option 1", "#", pg002);
@@ -130,7 +131,7 @@ pg004.addOption("Erstmal ausruhen", "#", pg003);
 
 
 
-var test4 = new List.<String>();
+static var test4 = new List.<String>();
 test4.Add("Save 1");
 test4.Add("Save 2");
 test4.Add("Save 3");
@@ -149,19 +150,19 @@ function Start () {
     //Debug.Log(goBack(test4, 8));
 }
 
-function goBack(listToWorkWith:List.<String>, steps:int){
+static function goBack(listToWorkWith:List.<String>, steps:int){
     var list = listToWorkWith;
     var length = list.Count;
     
     if (length-steps<=0){
-        test4.RemoveRange(1, length-1);
+        listToWorkWith.RemoveRange(1, length-1);
         length = list.Count;
         Debug.Log(length);
         // Gibt einzigen (also den ersten) Eintrag in der Liste aus
         return list[0];
     }
     else{
-        test4.RemoveRange(length-steps, steps);
+        listToWorkWith.RemoveRange(length-steps, steps);
         length = list.Count;
         Debug.Log("Gemacht.");
         // Gibt letzten Eintrag in der Liste aus
@@ -404,5 +405,3 @@ einTest.Add("test");
                 Debug.Log(test4);
     }
     */
-
-*/
