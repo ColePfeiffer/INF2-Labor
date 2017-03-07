@@ -130,10 +130,6 @@ pg004.addOption("Erstmal ausruhen", "#", pg003);
 
 
 
-
-
-
-
 var test4 = new List.<String>();
 test4.Add("Save 1");
 test4.Add("Save 2");
@@ -149,28 +145,27 @@ function Start () {
     fieldPG.GetComponent.<Text>().text = currentPG.txt;
     showOption();
     //yield WaitForSeconds(2);
-    goBack(test4);
+    //Debug.Log(goBack(test4, 3));
+    //Debug.Log(goBack(test4, 8));
 }
 
-
-
-function goBack(listToWorkWith:List.<String>){
+function goBack(listToWorkWith:List.<String>, steps:int){
     var list = listToWorkWith;
     var length = list.Count;
-    Debug.Log(length);
     
-    /*for (var test4:String in test4 )
-    {
-                Debug.Log(test4);
-    }
-    */
-
-    if (length-2<=0){
-        Debug.Log("Nee, Index ist zu kurz.");
+    if (length-steps<=0){
+        test4.RemoveRange(1, length-1);
+        length = list.Count;
+        Debug.Log(length);
+        // Gibt einzigen (also den ersten) Eintrag in der Liste aus
+        return list[0];
     }
     else{
-        test4.RemoveRange(length-2, 2);
+        test4.RemoveRange(length-steps, steps);
+        length = list.Count;
         Debug.Log("Gemacht.");
+        // Gibt letzten Eintrag in der Liste aus
+        return list[length-1];
     }
 }
 
@@ -403,5 +398,11 @@ einTest.Add("blah");
 einTest.Add("foo");
 einTest.Add("test");
 
+    // For-Each
+    /*for (var test4:String in test4 )
+    {
+                Debug.Log(test4);
+    }
+    */
 
 */
