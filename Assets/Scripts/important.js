@@ -1,4 +1,6 @@
-﻿// ########################
+﻿import System.Collections.Generic;
+
+// ########################
 // Setup der Textausgabe
 // ########################
 public static var fieldOption1:GameObject;
@@ -149,58 +151,65 @@ function modifyTags(tagsToAdd:String) {
     activeTags = activeTags.split("#").filter(function(item, index, self){
     return index == self.indexOf(item);}).join("#");
 }
-/*
-    function checkPreq(preqTags, activeTags){
-        var activeTags2 = activeTags.Split("#"[0]);
-        var preqTags2 = preqTags.Split("#"[0]);
 
-        for (var i:int=0; int<=preqTags2.Length; i++){
-            for (var n:int=0; int<=activeTags2.Length; n++){
-                if (preqTags2[i].Contains (activeTags2[n])) {
-                    Debug.Log ("Yep.");
-                 }
-            }
-}}*/
 // exclusionTags.split("#"), activeTags.split("#"))
-
-//#test#weg
 activeTags = "peter#hund#mau#miau";
-var test = "test#hund#klops#otto#peter#hans#solo#test";
-var test2 = test.Split("#"[0]);
-var activeTags3 = ["test", "hund", "mau", "otto"];
+// Split
+var tags33 = "test#hund#klops#otto#peter#hans#solo#test";
+var tags33inArray = tags33.Split("#"[0]);
+
+
+
+
 /*
+
 function test32(){
     var noMatch:boolean = true;
-    for (var i:int=0; i<=test2.Length; i++){
-        Debug.Log("FL-1: "+i);
-        for (var n:int=0; n<=activeTags3.Length; n++){
-           Debug.Log("FL-2: "+n);
+
+    // List-Var
+    var newList = new List.<String>();
+
+    // Array in List
+    for (var pi:int=0; i<tags33inArray.Length; p++){
+          newList.Add(tags33inArray[p]);
+    }
+
+    for (var i:int=0; i<test2.Length; i++){
+        Debug.Log("For Loop-1: "+i);
+        for (var n:int=0; n<activeTags3.Length; n++){
+           Debug.Log("For Loop-2: "+n);
            Debug.Log(test2[i]);
            Debug.Log(activeTags3[n]);
-           //Debug.Log(activeTags3[n]);
-        }
+        //Debug.Log(activeTags3[n]);
     }
-}*/
+}
+}
+*/
+/*
+function checkPreq(preqTags, activeTags){
+    var activeTags2 = activeTags.Split("#"[0]);
+    var preqTags2 = preqTags.Split("#"[0]);
 
-var strings = ["yo", "blah", "foo"];
-var index = Array.IndexOf(strings, "yo");
-    Debug.Log("Yeah");
+    for (var i:int=0; int<preqTags2.Length; i++){
+        for (var n:int=0; int<activeTags2.Length; n++){
+            if (preqTags2[i].Contains (activeTags2[n])) {
+                Debug.Log ("Yep.");
+    }
+}
+}}*/
 
-if (strings.Contains("blah")) {
+var einTest = new List.<String>();
+einTest.Add("yo");
+einTest.Add("blah");
+einTest.Add("foo");
+einTest.Add("test");
+
+var index = einTest.IndexOf("yo");
+
+if (einTest.Contains("blah")) {
     Debug.Log ("Yep.");
 }
-
-function test332(){
-    return activeTags3.Contains("test");
-}
-
-for (var i:int=0; i<=test2.Length; i++){
-    if (activeTags3.Contains("test")){
-    Debug.Log("Yay");
-}
-}
-
-test332();
+// einTest.Contains("test")
 
 // wird aufgerufen, sobald eine Option ausgewählt wurde
 // gibt den nächsten Abschnitt aus
